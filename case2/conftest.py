@@ -1,12 +1,12 @@
 import pytest
 from selenium import webdriver
-import selenium
+
 
 @pytest.fixture(scope="session")
 def setup(request):
     capabilities = {
         "browserName": "firefox",
-        "browserVersion": "97.0",
+        "browserVersion": "98.0",
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": False

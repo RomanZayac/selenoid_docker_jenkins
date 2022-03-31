@@ -1,8 +1,4 @@
-import pytest
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import time
 
 import pytest
 from selenium import webdriver
@@ -26,3 +22,14 @@ class TestExampleOne:
     def test_three(self):
         x = 3
         assert 3 == x
+
+    def test_open(self, setup):
+
+        # webdriver.Remote.get(setup, "https://www.selenium.dev/")
+        driver = webdriver.Remote
+        # time.sleep(2)
+        driver.get(setup, "https://www.selenium.dev/blog/")
+        time.sleep(2)
+        element = driver.find_element_by_xpath(setup,"//h1")
+        text = element.text
+        assert "Blog" in text
