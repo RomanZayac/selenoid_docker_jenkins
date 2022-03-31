@@ -23,6 +23,10 @@ class TestExampleOne:
         x = 3
         assert 3 == x
 
+    def test_four(self):
+        x = 4
+        assert 5 == x
+
     def test_open(self, setup):
 
         # webdriver.Remote.get(setup, "https://www.selenium.dev/")
