@@ -76,7 +76,7 @@ def setup(request):
     if browser == "firefox":
         capabilities = {
             "browserName": "firefox",
-            "browserVersion": "95.0",
+            "browserVersion": "97.0",
             "selenoid:options": {
                 "enableVNC": True,
                 "enableVideo": False
@@ -89,7 +89,7 @@ def setup(request):
     elif browser == "chrome":
         capabilities = {
             "browserName": "chrome",
-            "browserVersion": "95.0",
+            "browserVersion": "98.0",
             "selenoid:options": {
                 "enableVNC": True,
                 "enableVideo": False
