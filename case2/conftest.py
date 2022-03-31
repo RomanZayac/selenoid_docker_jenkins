@@ -14,7 +14,7 @@ def setup(request):
     }
     driver = webdriver.Remote(
         command_executor="http://localhost:4444/wd/hub",
-        desired_capabilities=capabilities)
+        options=capabilities)
     driver.maximize_window()
 
     yield driver
