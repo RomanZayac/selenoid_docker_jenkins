@@ -30,6 +30,6 @@ class TestExampleOne:
         # time.sleep(2)
         driver.get(setup, "https://www.selenium.dev/blog/")
         time.sleep(2)
-        element = driver.find_element_by_xpath(setup,"//h1")
+        element = driver.find_element(setup, By.XPATH, "//h1")
         text = element.text
         assert "Blog" in text
