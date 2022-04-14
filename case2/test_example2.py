@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-@pytest.mark.usefixtures("setup")
+@pytest.mark.usefixtures('setup')
 class TestExampleTwo:
 
 

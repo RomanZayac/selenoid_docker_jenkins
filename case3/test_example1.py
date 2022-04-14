@@ -1,51 +1,102 @@
-import pytest
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import time
+from urllib import request
 
 import pytest
+from selenium import webdriver
+firefox97_cap={"browserName": "firefox",
+        "browserVersion": "97.0",
+        'name': 'Parallel Test3',
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": False
+        }
+       }
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+firefox98_cap={"browserName": "firefox",
+        "browserVersion": "98.0",
+        'name': 'Parallel Test4',
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": False
+        }
+       }
 
 
-@pytest.mark.usefixtures("setup")
-class TestExampleOne:
-    def test_title(self):
-        assert "Selenium Easy" in self.driver.title
+# @pytest.fixture(scope="class")
+# def driver_init(request):
+#     ff_driver = webdriver.Remote(
+#     command_executor='http://localhost:4444/wd/hub',
+#     desired_capabilities=firefox97_cap)
+#     request.cls.driver = ff_driver
+#     yield
+#     ff_driver.close()
+#
+# @pytest.fixture(scope="class")
+# def chrome_driver_init(request):
+#     chrome_driver = webdriver.Remote(
+#     command_executor='http://localhost:4444/wd/hub',
+#     desired_capabilities=firefox98_cap)
+#     request.cls.driver = chrome_driver
+#     yield
+#     chrome_driver.close()
+# @pytest.mark.usefixtures("driver_init")
+# class BasicTest:
+#     pass
+# class Test_URL(BasicTest):
+#     def test_open_url(self):
+#         self.driver.get("https://www.lambdatest.com/")
+#         print(self.driver.title)
+#         time.sleep(5)
+#
+# @pytest.mark.usefixtures("chrome_driver_init")
+# class Basic_Chrome_Test:
+#     pass
+# class Test_URL_Chrome(Basic_Chrome_Test):
+#     def test_open_url(self):
+#         self.driver.get("https://www.lambdatest.com/")
+#         print(self.driver.title)
+#
 
-    def test_content_text(self):
-        print("Verify content on the page")
-        centerText = self.driver.find_element_by_css_selector('.tab-content .text-center').text
-        assert "WELCOME TO SELENIUM EASY DEMO" == centerText
+@pytest.fixture(params=["firefox_97", "firefox_98"],scope="class")
+def driver_init(request):
+    if request.param == "firefox_97":
+        web_driver = webdriver.Remote(
+    command_executor='http://localhost:4444/wd/hub',
+    desired_capabilities=firefox97_cap)
+    if request.param == "firefox_98":
+        web_driver = webdriver.Remote(
+    command_executor='http://localhost:4444/wd/hub',
+    desired_capabilities=firefox98_cap)
+    request.cls.driver = web_driver
+    yield web_driver
+    web_driver.close()
+@pytest.mark.usefixtures("driver_init")
+class BasicTest:
+    pass
+class Test_URL(BasicTest):
 
-    def test_bootstrap_bar(self):
-        print("Lets try with another example")
-        mainMenu = self.driver.find_element_by_xpath("//li/a[contains(text(), 'Progress Bars')]")
-        mainMenu.click()
+    # def test_open_urld(self):
+    #     self.driver.get("https://www.lambdatest.com/")
+    #     print(self.driver.title)
+    #     time.sleep(5)
 
-        subMenu = self.driver.find_element_by_xpath("//li/a[contains(text(), 'Bootstrap Progress bar')]")
-        subMenu.click()
 
-        btnDownload = self.driver.find_element_by_id("cricle-btn")
-        btnDownload.click()
+    def test_open_urls(self):
+        self.driver.get("https://www.facebook.com/")
+        print(self.driver.title)
+        time.sleep(5)
 
-        WebDriverWait(self.driver, 50).until(EC.text_to_be_present_in_element_value((By.ID, 'cricleinput'), "105"))
+    def test_open_uri(self, driver_init):
+        driver_init.get("https://www.lambdatest.com/")
+        print(driver_init.title)
+        time.sleep(5)
+        assert driver_init.current_url == "https://www.lambdatet.com/"
 
-        elemValue = self.driver.find_element_by_id("cricleinput")
-        elemVAttributealue = elemValue.get_attribute('value')
-        assert elemVAttributealue == "105"
 
-    def test_one(self):
-        x = "this"
-        assert 'h' in x
 
-    def test_two(self):
-        x = "hello"
-        assert hasattr(x, 'check')
+    def test_open_urld(self, driver_init):
+        driver_init.get("https://www.lambdatest.com/")
+        print(driver_init.title)
+        time.sleep(5)
+        assert driver_init.current_url == "https://www.lambdatest.com/"
 
-    def test_three(self):
-        x = "welcome"
-        assert hasattr(x, 'test')
