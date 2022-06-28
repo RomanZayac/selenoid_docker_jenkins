@@ -62,4 +62,4 @@ class Test_URL(BasicTest):
         print(driver_init.title)
         time.sleep(3)
         assert driver_init.current_url == "https://www.google.com/"
-# write into pytest.ini file addopts = --alluredir=report
+
